@@ -1,0 +1,66 @@
+ReDim buyerItems(0 To 15, 0 To 3) As String
+buyerItems(0, 0) = "BALLARD, MICHAEL D."
+buyerItems(1, 0) = "BARRER, TOM A"
+buyerItems(2, 0) = "BAUMAN, SHARON"
+buyerItems(3, 0) = "FONTES, CHARLENE"
+buyerItems(4, 0) = "HARAM, SANDI"
+buyerItems(5, 0) = "HERMAN, BOB C"
+buyerItems(6, 0) = "HOUSTON, DOUG"
+buyerItems(7, 0) = "KILE, KATIE"
+buyerItems(8, 0) = "LABOUNTY, BARRY"
+buyerItems(9, 0) = "LOOFT, JEFF"
+buyerItems(10, 0) = "MARKSTROM, GREG"
+buyerItems(11, 0) = "MASON, MITCH"
+buyerItems(12, 0) = "POQUETTE, ADELE"
+buyerItems(13, 0) = "RICKHEIM, TROY"
+buyerItems(14, 0) = "RUTHERFORD, DEBBIE"
+'-----------------------------------------------------------------------------------------------
+For i = 1 To 300
+        'Checks if there is an NA# value in given cells
+    '------------------------------------------------------------------------------
+    If Cells(i, "a") = Empty Then
+        Exit For
+    ElseIf WorksheetFunction.IsNA(Cells(i, "d").Value) = True And WorksheetFunction.IsNA(Cells(i, "f").Value) = True Then
+            Cells(i, "a").Interior.ColorIndex = 37
+            Cells(i, "f").Interior.ColorIndex = 37
+    ElseIf WorksheetFunction.IsNA(Cells(i, "d").Value) = True Or VarType(Cells(i, "d")) = vbError Then
+        ' Check if items have been added already
+        For b = 0 To 14
+            If buyerItems(b, 0) = Cells(i, "f").Value Then
+            
+                If buyerItems(b, 1) = "" Then
+                    buyerItems(b, 1) = buyerText + vbNewLine + Cells(i, "a").Value
+                Else: buyerItems(b, 1) = buyerItems(b, 1) + vbNewLine + Cells(i, "a").Value
+                
+                End If
+                
+            Cells(i, "i").Value = buyerItems(b, 1)
+            Cells(i, "f").Interior.ColorIndex = 37
+            Cells(i, "f").Borders.Color = 1
+            Cells(i, "i").Interior.ColorIndex = 37
+            Cells(i, "i").Borders.Color = 1
+            
+            End If
+            
+        Next b
+                  
+                            
+    ElseIf WorksheetFunction.IsNA(Cells(i, "d").Value) = False Then
+    
+        If Cells(i, "d").Value = "AM1" Or Cells(i, "d").Value = "AM3" Then
+            Cells(i, "h").Value = "Manufacturer info:" & vbNewLine & "Entrust Datacard" & vbNewLine & "1187 Park Pl." & vbNewLine & "Shakopee, MN 55379"
+        Else
+        a = "Manufacturer info:" & vbNewLine & Cells(i, "d").Value & vbNewLine & Cells(i, "e").Value
+        Cells(i, "h").Value = a
+        
+        End If
+        
+        Cells(i, "h").Interior.ColorIndex = 43
+        Cells(i, "h").Borders.Color = 1
+        
+    End If
+    '---------------------------------------------------------------------------------------------------
+Next i
+'--------------------------------------------------------------------------------------------------------------
+End Sub
+
