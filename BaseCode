@@ -1,3 +1,8 @@
+Sub COO_Format()
+Dim buyerText As String
+buyerText = "Hello, Please provide manufacturer name and address if items: "
+Dim part_numbers(20, 30) As Double
+
 ReDim buyerItems(0 To 15, 0 To 3) As String
 buyerItems(0, 0) = "BALLARD, MICHAEL D."
 buyerItems(1, 0) = "BARRER, TOM A"
@@ -15,7 +20,7 @@ buyerItems(12, 0) = "POQUETTE, ADELE"
 buyerItems(13, 0) = "RICKHEIM, TROY"
 buyerItems(14, 0) = "RUTHERFORD, DEBBIE"
 '-----------------------------------------------------------------------------------------------
-For i = 1 To 300
+For i = 6 To 300
         'Checks if there is an NA# value in given cells
     '------------------------------------------------------------------------------
     If Cells(i, "a") = Empty Then
@@ -23,7 +28,7 @@ For i = 1 To 300
     ElseIf WorksheetFunction.IsNA(Cells(i, "d").Value) = True And WorksheetFunction.IsNA(Cells(i, "f").Value) = True Then
             Cells(i, "a").Interior.ColorIndex = 37
             Cells(i, "f").Interior.ColorIndex = 37
-    ElseIf WorksheetFunction.IsNA(Cells(i, "d").Value) = True Or VarType(Cells(i, "d")) = vbError Then
+    ElseIf WorksheetFunction.IsNA(Cells(i, "d").Value) = True Or VarType(Cells(i, "d")) = vbError Or WorksheetFunction.IsNA(Cells(i, "e").Value) = True Or VarType(Cells(i, "e")) = vbError Or Cells(i, "d") = Empty Or Cells(i, "e") = Empty Then
         ' Check if items have been added already
         For b = 0 To 14
             If buyerItems(b, 0) = Cells(i, "f").Value Then
@@ -31,17 +36,23 @@ For i = 1 To 300
                 If buyerItems(b, 1) = "" Then
                     buyerItems(b, 1) = buyerText + vbNewLine + Cells(i, "a").Value
                 Else: buyerItems(b, 1) = buyerItems(b, 1) + vbNewLine + Cells(i, "a").Value
+                    For j = 1 To i - 1
+                        If (WorksheetFunction.IsNA(Cells(i, "d").Value) = True Or VarType(Cells(i, "d")) = vbError) And Cells(j, "f") = buyerItems(b, 0) Then
+                        Cells(j, "i").Value = ""
+                           
+                        End If
+                    Next j
                 
+                    
+            
                 End If
                 
-            Cells(i, "i").Value = buyerItems(b, 1)
-            Cells(i, "f").Interior.ColorIndex = 37
-            Cells(i, "f").Borders.Color = 1
-            Cells(i, "i").Interior.ColorIndex = 37
-            Cells(i, "i").Borders.Color = 1
-            
+                Cells(i, "i").Value = buyerItems(b, 1)
+                Cells(i, "f").Interior.ColorIndex = 37
+                Cells(i, "f").Borders.Color = 1
+                Cells(i, "i").Interior.ColorIndex = 37
+                Cells(i, "i").Borders.Color = 1
             End If
-            
         Next b
                   
                             
