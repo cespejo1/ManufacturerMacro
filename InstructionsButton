@@ -1,0 +1,3 @@
+Sub Instructions()
+MsgBox ("Hello, This Macro is to help you format the Manufacturer information so that you can paste into Oracle and also have CIT text ready for each buyer with items that need more info. All you nee to do is copy from the COO Report.xlsx from coloumns 'A' (Item number) through 'F' (Buyer) and paste the same information on this sheet starting on row 6. Then hit the button 'Format' to run the Formatting Macro, and your results will be on Columns H and I. If there is information missing, Coloumn will group the part numbers by Buyers with the part numbers ready to paste in a CIT. The 'Clear' button is for clearing the sheet.")
+End Sub
