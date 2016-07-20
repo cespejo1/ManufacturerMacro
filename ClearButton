@@ -1,0 +1,5 @@
+Sub ClearButton()
+LastRow = ActiveSheet.UsedRange.Rows.Count
+Range("A6", (Cells(LastRow, "i"))).Clear
+
+End Sub
